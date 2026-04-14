@@ -16,6 +16,9 @@ class PhoenixCommands:
     TEST_NOTE_IN = b'\x61'
     PRINT_RTC = b'\x1c\x7d\x70'
 
+    PRINT_MODE = b'\x1b\x21'
+    RESET = b'\x1b\x40'
+
 class RelianceCommands:
     INIT = b'\x1b\x40'
     FULL_STATUS = b'\x10\x04\x20'

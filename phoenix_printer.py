@@ -51,12 +51,21 @@ class PhoenixPrinter(base_printer.BasePrinter):
         return "NO_RESPONSE"
 
     def print_rtc(self):
-        self.ser.reset_input_buffer()
-        self.ser.write(PhoenixCommands.PRINTER_ID)
-        print("Requesting RTC print...")
-        time.sleep(0.25)
+        self.send_command(b'\x1b\x40')
 
-        print(PhoenixCommands.PRINTER_ID.hex().upper())
+        self.send_command(b'\x1b\x54')
+        self.send_command(b'PHOENIX' + b'\x0a')
+
+        self.send_command(b'\x1b\x50')
+        self.send_command(b'Standard Font A Test' + b'\x0a')
+
+        self.send_command(b'\x1b\x45\x01')
+        self.send_command(b'BOLD TEXT ENABLED' + b'\x0a')
+        self.send_command(b'\x1b\x45\x00')
+
+        self.send_command(b'\x0a\x0a\x0a')
+        self.send_command(b'\x1b\x6d')
+        time.sleep(0.25)
 
         if self.ser.in_waiting > 0:
             print (f"Data available, reading response... {self.ser.in_waiting} bytes")

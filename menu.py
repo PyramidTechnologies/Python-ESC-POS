@@ -88,5 +88,5 @@ class PrinterMenu:
             if choice == "5": self.printer.send_command(PhoenixCommands.PRINT_RTC + b'\x00\x0a')
             if choice == "6": console.print(f"Printer ID: {self.printer.print_rtc()}")
         else:
-            # Reliance logic
-            if choice == "3": console.print(self.printer.get_full_status())
+            self.printer.close()
+
