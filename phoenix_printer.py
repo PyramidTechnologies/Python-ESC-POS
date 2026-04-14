@@ -49,3 +49,19 @@ class PhoenixPrinter(base_printer.BasePrinter):
             return "ONLINE" if is_online else "OFFLINE"
 
         return "NO_RESPONSE"
+
+    def print_rtc(self):
+        self.ser.reset_input_buffer()
+        self.ser.write(PhoenixCommands.PRINTER_ID)
+        print("Requesting RTC print...")
+        time.sleep(0.25)
+
+        print(PhoenixCommands.PRINTER_ID.hex().upper())
+
+        if self.ser.in_waiting > 0:
+            print (f"Data available, reading response... {self.ser.in_waiting} bytes")
+            res = self.ser.read(self.ser.in_waiting)
+            print(f"RTC Response: {res.hex().upper()}")
+
+            return res.hex().upper()
+        return "No Response"

@@ -2,6 +2,8 @@
 class PhoenixCommands:
     INIT = b'\x1b\x40'
     RT_STATUS = b'\x10\x04'
+    GET_DATETIME = b'\x7b'
+    PRINTER_ID = b'\x1d\x49\x03'
 
     # RT Status Arguments (n)
     RT_PRINTER = b'\x01'
