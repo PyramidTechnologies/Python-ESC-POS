@@ -2,20 +2,18 @@ import serial
 import time
 
 class BasePrinter:
-    def __init__(self, port, baudrate, parity):
+    def __init__(self, port, baudrate):
         self.ser = serial.Serial(
             port=port,
             baudrate=baudrate,
             bytesize=serial.EIGHTBITS,
-            parity=parity,
+            parity=serial.PARITY_NONE,
             stopbits=serial.STOPBITS_ONE,
-            timeout=1.5,
-            xonxoff=False,
-            rtscts=False,
-            dsrdtr=False
         )
+
         time.sleep(1)
         self.ser.reset_input_buffer()
+        self.ser.reset_output_buffer()
 
     def __enter__(self):
         return self

@@ -1,39 +1,51 @@
 import base_printer
-import serial
-import commands
 import time
+from commands import PhoenixCommands
 
-
-def interpret_status(n, hex_val):
-    if not hex_val: return "No Response"
-    val = int(hex_val, 16)
-
-    if n == 1:
-        # Bit 3: Off=Online (00), On=Offline (08)
-        return "Offline" if (val & 0x08) else "Online"
-
-    if n == 4:
-        # Per docs: 72 = Not present, 1E = Low
-        if val == 0x72: return "Paper Not Present"
-        if val == 0x1E: return "Paper Low"
-        if val == 0x00 or val == 0x10: return "Paper OK"
-
-    return f"Unknown ({hex_val})"
-
-
+## @class PhoenixPrinter
+#  @brief Implementation for the Pyramid Phoenix Thermal Printer.
+#  @details This class handles hardware-specific handshaking and status parsing.
+#  @see [Phoenix Status Documentation](https://escpos.readthedocs.io/en/latest/phoenix_status.html)
 class PhoenixPrinter(base_printer.BasePrinter):
     def __init__(self, port):
-        super().__init__(port, 9600, serial.PARITY_EVEN)
+        super().__init__(port, 9600)
+        self.ser.dtr = True
+        self.ser.rts = True
 
-    def print_coin_test(self):
-        self.send_command(commands.PhoenixCommands.TEST_COIN_IN)
-
-    def get_real_time_status(self, n=1):
+        time.sleep(1)
         self.ser.reset_input_buffer()
-        self.ser.write(commands.PhoenixCommands.RT_STATUS + bytes([n]))
+
+    ## @brief Requests the Paper Roll Status (n=4).
+    #  @return String description of paper state.
+    def get_paper_status(self):
+        self.ser.reset_input_buffer()
+        self.ser.write(PhoenixCommands.RT_STATUS + PhoenixCommands.RT_PAPER)
         time.sleep(0.25)
 
         if self.ser.in_waiting > 0:
-            return interpret_status(n, self.ser.read(1).hex().upper())
-        return None
+            res = self.ser.read(1)[0]
 
+            if res == 0x72: return "Paper Empty"
+            if res == 0x1E: return "Paper Low"
+            if (res & 0x12) == 0x12: return "Paper OK"
+
+            return f"Unknown Status: {hex(res)}"
+        return "No Response"
+
+    ## @brief Verifies the logic link between the printer and host.
+    #  @return String description of connection status.
+    def verify_logic_link(self):
+        self.ser.reset_input_buffer()
+        self.ser.write(PhoenixCommands.RT_STATUS + PhoenixCommands.RT_PAPER)
+        time.sleep(0.25)
+
+        if self.ser.in_waiting > 0:
+            res = self.ser.read(1)[0]
+
+            if res == 0xAC:
+                return "CONNECTED_BUT_MANGLED (Check Parity/Stop Bits and/or RJ45 Wiring)"
+
+            is_online = (res & 0x08) == 0
+            return "ONLINE" if is_online else "OFFLINE"
+
+        return "NO_RESPONSE"
