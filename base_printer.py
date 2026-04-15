@@ -27,3 +27,8 @@ class BasePrinter:
     def close(self):
         if hasattr(self, 'ser') and self.ser.is_open:
             self.ser.close()
+
+    def read_response(self, timeout=1.0):
+        self.ser.timeout = timeout
+        response = self.ser.read_all()
+        return response

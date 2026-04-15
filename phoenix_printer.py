@@ -9,8 +9,6 @@ from commands import PhoenixCommands
 class PhoenixPrinter(base_printer.BasePrinter):
     def __init__(self, port):
         super().__init__(port, 9600)
-        self.ser.dtr = True
-        self.ser.rts = True
 
         time.sleep(1)
         self.ser.reset_input_buffer()
@@ -19,7 +17,7 @@ class PhoenixPrinter(base_printer.BasePrinter):
     #  @return String description of paper state.
     def get_paper_status(self):
         self.ser.reset_input_buffer()
-        self.ser.write(PhoenixCommands.RT_STATUS + PhoenixCommands.RT_PAPER)
+        self.ser.write(PhoenixCommands.REAL_TIME_STATUS + PhoenixCommands.RT_PAPER)
         time.sleep(0.25)
 
         if self.ser.in_waiting > 0:
@@ -36,7 +34,7 @@ class PhoenixPrinter(base_printer.BasePrinter):
     #  @return String description of connection status.
     def verify_logic_link(self):
         self.ser.reset_input_buffer()
-        self.ser.write(PhoenixCommands.RT_STATUS + PhoenixCommands.RT_PAPER)
+        self.ser.write(PhoenixCommands.REAL_TIME_STATUS + PhoenixCommands.RT_PAPER)
         time.sleep(0.25)
 
         if self.ser.in_waiting > 0:
@@ -49,28 +47,3 @@ class PhoenixPrinter(base_printer.BasePrinter):
             return "ONLINE" if is_online else "OFFLINE"
 
         return "NO_RESPONSE"
-
-    def print_rtc(self):
-        self.send_command(b'\x1b\x40')
-
-        self.send_command(b'\x1b\x54')
-        self.send_command(b'PHOENIX' + b'\x0a')
-
-        self.send_command(b'\x1b\x50')
-        self.send_command(b'Standard Font A Test' + b'\x0a')
-
-        self.send_command(b'\x1b\x45\x01')
-        self.send_command(b'BOLD TEXT ENABLED' + b'\x0a')
-        self.send_command(b'\x1b\x45\x00')
-
-        self.send_command(b'\x0a\x0a\x0a')
-        self.send_command(b'\x1b\x6d')
-        time.sleep(0.25)
-
-        if self.ser.in_waiting > 0:
-            print (f"Data available, reading response... {self.ser.in_waiting} bytes")
-            res = self.ser.read(self.ser.in_waiting)
-            print(f"RTC Response: {res.hex().upper()}")
-
-            return res.hex().upper()
-        return "No Response"
