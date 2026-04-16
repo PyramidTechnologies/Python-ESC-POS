@@ -14,6 +14,10 @@ class Commands:
     PRINTER_ID = b'\x1d\x49'
     RASTER_IMAGE = b'\x1d\x76\x30'
 
+    # Additional
+    ON = b'\x01'
+    OFF = b'\x00'
+
 class PhoenixCommands(Commands):
     SELECT_FONT_A = b'\x1b\x50'
     SELECT_FONT_B = b'\x1b\x54'

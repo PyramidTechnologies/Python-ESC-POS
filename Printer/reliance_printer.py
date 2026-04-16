@@ -1,4 +1,4 @@
-import base_printer
+from Printer import base_printer
 import time
 
 class ReliancePrinter(base_printer.BasePrinter):

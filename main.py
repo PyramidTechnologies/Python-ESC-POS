@@ -1,5 +1,5 @@
-from menu import PrinterMenu
+from Menu.main_menu import MainMenu
 
 if __name__ == "__main__":
-    app = PrinterMenu()
+    app = MainMenu()
     app.run()
