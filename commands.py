@@ -19,6 +19,10 @@ class Commands:
     ON = b'\x01'
     OFF = b'\x00'
 
+    LEFT = b'\x00'
+    CENTER = b'\x01'
+    RIGHT = b'\x02'
+
 class PhoenixCommands(Commands):
     SELECT_FONT_A = b'\x1b\x50'
     SELECT_FONT_B = b'\x1b\x54'

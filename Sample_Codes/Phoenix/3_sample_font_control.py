@@ -1,11 +1,9 @@
-## @file 3_sample_font_control.py
 #  @brief Demonstrates font styling and selection on Phoenix printers.
 #  @details This sample covers bold, underline, and switching between Font A (12x24) and Font B (9x17).
 #  @see [Font Controlling Commands](https://escpos.readthedocs.io/en/latest/font_cmds.html)
 
 import sys
 import os
-import time
 
 # Ensure project root is in path for Printer and commands modules
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
