@@ -13,6 +13,7 @@ class Commands:
     PARTIAL_CUT = b'\x1b\x69'
     PRINTER_ID = b'\x1d\x49'
     RASTER_IMAGE = b'\x1d\x76\x30'
+    REAL_TIME_STATUS = b'\x10\x04'
 
     # Additional
     ON = b'\x01'
@@ -25,14 +26,13 @@ class PhoenixCommands(Commands):
     PAPER_STATUS = b'\x1b\x76'
     PRINT_N_FEED_PAPER_N_LINES = b'\x1b\x64'
     PRINT_N_FEED_PAPER = b'\x1b\x4a'
-    REAL_TIME_STATUS = b'\x10\x04'
+
     DOUBLE_STRIKE_MODE = b'\x1b\x47'
     SELECT_CUT_MODE_AND_CUT_PAPER = b'\x1d\x56'
     FULL_CUT = b'\x1b\x6d'
     TOGGLE_AUTO_CUT = b'\x1c\x7d\x60'
     DYNAMIC_2D_BARCODE = b'\x1d\x28\x6b'
     PRINT_REAL_TIME_CLOCK = b'\x1c\x7d\x70'
-
     RT_PRINTER = b'\x01'
     RT_OFFLINE = b'\x02'
     RT_ERROR = b'\x03'
@@ -49,7 +49,6 @@ class RelianceCommands(Commands):
     CANCEL_CURRENT_LINE = b'\x18'
     ABSOLUTE_PRINT_POSITION = b'\x1b\x24'
     RELATIVE_PRINT_POSITION = b'\x1b\x5c'
-    REAl_TIME_STATUS = b'\x10\x04'
     ROTATE_90_DEGREES = b'\x1b\x56'
     SELECT_CHAR_PAGE = b'\x1b\x74'
     UPSIDE_DOWN_MODE = b'\x1b\x7b'

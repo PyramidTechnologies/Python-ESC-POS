@@ -14,7 +14,10 @@ class PhoenixPrinter(base_printer.BasePrinter):
         self.ser.reset_input_buffer()
 
     ## @brief Verifies the logic link between the printer and host.
+    #  @details Sends a DLE EOT (Real Time Status) command to check if the printer is responsive and online.
     #  @return String description of connection status.
+    #  @see [Phoenix Real Time Status Documentation](https://escpos.readthedocs.io/en/latest/phoenix_status.html#p1004)
+    #  @note A response of 0xAC typically indicates a hardware communication error such as incorrect parity or a wiring fault.
     def verify_logic_link(self):
         self.ser.reset_input_buffer()
         self.ser.write(PhoenixCommands.REAL_TIME_STATUS + PhoenixCommands.RT_PAPER)
