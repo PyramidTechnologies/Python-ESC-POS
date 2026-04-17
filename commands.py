@@ -23,6 +23,11 @@ class Commands:
     CENTER = b'\x01'
     RIGHT = b'\x02'
 
+    RT_PRINTER = b'\x01'
+    RT_OFFLINE = b'\x02'
+    RT_ERROR = b'\x03'
+    RT_PAPER = b'\x04'
+
 class PhoenixCommands(Commands):
     SELECT_FONT_A = b'\x1b\x50'
     SELECT_FONT_B = b'\x1b\x54'
@@ -37,10 +42,7 @@ class PhoenixCommands(Commands):
     TOGGLE_AUTO_CUT = b'\x1c\x7d\x60'
     DYNAMIC_2D_BARCODE = b'\x1d\x28\x6b'
     PRINT_REAL_TIME_CLOCK = b'\x1c\x7d\x70'
-    RT_PRINTER = b'\x01'
-    RT_OFFLINE = b'\x02'
-    RT_ERROR = b'\x03'
-    RT_PAPER = b'\x04'
+
 
     # Actions
     TEST_COIN_IN = b'\x60'
