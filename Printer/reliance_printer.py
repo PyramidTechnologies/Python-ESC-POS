@@ -1,11 +1,11 @@
 from Printer import base_printer
-import time
-
 from commands import RelianceCommands
+import time
 
 class ReliancePrinter(base_printer.BasePrinter):
     def __init__(self, port):
         super().__init__(port, 19200)
+        self.printer_type = "ReliancePrinter"
 
         time.sleep(1)
         self.ser.reset_input_buffer()

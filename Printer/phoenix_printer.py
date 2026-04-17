@@ -1,6 +1,6 @@
 from Printer import base_printer
-import time
 from commands import PhoenixCommands
+import time
 
 ## @class PhoenixPrinter
 #  @brief Implementation for the Pyramid Phoenix Thermal Printer.
@@ -9,6 +9,7 @@ from commands import PhoenixCommands
 class PhoenixPrinter(base_printer.BasePrinter):
     def __init__(self, port):
         super().__init__(port, 9600)
+        self.printer_type = "PhoenixPrinter"
 
         time.sleep(1)
         self.ser.reset_input_buffer()

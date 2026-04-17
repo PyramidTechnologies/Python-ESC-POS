@@ -53,6 +53,9 @@ class MainMenu:
             console.print("[bold red]Failed to connect to printer. Exiting.[/bold red]")
             return
 
+        self.phoenix_menu()
+
+    def phoenix_menu(self):
         while True:
             menu_text = (
                 "1. [bold cyan]Print Menu[/bold cyan] (Text, Font, Style)\n"
@@ -69,9 +72,9 @@ class MainMenu:
                 self.printer.close()
                 break
 
-            self.handle_choice(choice)
+            self.phoenix_handle_choice(choice)
 
-    def handle_choice(self, choice):
+    def phoenix_handle_choice(self, choice):
         if choice == "1":
             PrintMenu(self.printer)
         elif choice == "2":
