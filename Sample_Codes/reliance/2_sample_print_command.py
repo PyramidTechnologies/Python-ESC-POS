@@ -3,6 +3,11 @@
 from Printer.reliance_printer import ReliancePrinter
 from commands import RelianceCommands
 from Menu.util import find_port
+import sys
+import os
+
+# Ensure project root is in path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
 ## Illustrates the standard "Initialize -> Action -> Cut" workflow.
 #  @see [Phoenix Paper Movement Commands](https://escpos.readthedocs.io/en/latest/paper_movement.html)
@@ -23,7 +28,7 @@ def run_basic_print():
         print("Sending text...")
         printer.send_command(b"Reliance Sample Print\n")
         printer.send_command(b"--------------------\n\n\n\n\n")
-        printer.send_command(b"SWT-189: Command Sample\n\n")
+        printer.send_command(b"Command Sample\n\n")
 
         # Cut and Eject Paper
         # @see [Reliance Ejector Commands](https://escpos.readthedocs.io/en/latest/paper_movement.html#ejector-1d-65-rel)

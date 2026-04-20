@@ -15,12 +15,11 @@ class ReliancePrinter(base_printer.BasePrinter):
         self.ser.write(RelianceCommands.REAL_TIME_STATUS + RelianceCommands.RT_OFFLINE)
         time.sleep(0.25)
 
-        print(f"Bytes waiting: {self.ser.in_waiting}")
         if self.ser.in_waiting > 0:
             res = self.ser.read(1)[0]
             if res == 0xAC:
                 return "CONNECTED_BUT_MANGLED (Check Parity/Stop Bits)"
 
-            is_online = res ==  0x08
+            is_online = (res & 0x08) == 0x08
             return "ONLINE" if is_online else "OFFLINE"
         return "NO_RESPONSE"

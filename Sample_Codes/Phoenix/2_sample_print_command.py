@@ -3,6 +3,11 @@
 from Printer.phoenix_printer import PhoenixPrinter
 from commands import PhoenixCommands
 from Menu.util import find_port
+import sys
+import os
+
+# Ensure project root is in path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
 ## Illustrates the standard "Initialize -> Action -> Cut" workflow.
 #  @see [Phoenix Paper Movement Commands](https://escpos.readthedocs.io/en/latest/paper_movement.html)
@@ -12,8 +17,8 @@ def run_basic_print():
         print("No printer found.")
         return
 
-    # Use the correct port index based on your setup. Here we use ports[1] as in previous samples.
-    printer = PhoenixPrinter(ports[1].device)
+    # Use the first detected printer port by default.
+    printer = PhoenixPrinter(ports[0].device)
 
     try:
         # Initialize

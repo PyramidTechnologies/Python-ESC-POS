@@ -5,6 +5,11 @@
 from Menu.util import find_port
 from Printer.reliance_printer import ReliancePrinter
 from commands import RelianceCommands
+import sys
+import os
+
+# Ensure project root is in path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
 def run_layout_sample():
     ports = find_port()

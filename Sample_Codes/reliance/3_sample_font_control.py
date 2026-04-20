@@ -4,6 +4,11 @@
 from Menu.util import find_port
 from Printer.reliance_printer import ReliancePrinter
 from commands import RelianceCommands
+import sys
+import os
+
+# Ensure project root is in path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
 def run_font_orientation_sample():
     ports = find_port()
@@ -44,7 +49,7 @@ def run_font_orientation_sample():
         # Turn 90° Clockwise OFF
         printer.send_command(RelianceCommands.ROTATE_90_DEGREES + b'\x00')
 
-        # --- UPSIDE DOWN MODE (180°) ---\
+        # --- UPSIDE DOWN MODE (180°) ---
         # @see [Reliance Upside Down Commands](https://escpos.readthedocs.io/en/latest/font_cmds.html#upside-down-mode-1b-7b-rel)
         printer.send_command(b"\nUPSIDE DOWN SAMPLE:\n")
 

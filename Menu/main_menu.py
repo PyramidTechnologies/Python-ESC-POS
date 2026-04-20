@@ -88,9 +88,17 @@ class MainMenu:
         path = Prompt.ask("Enter image path")
         try:
             raster_blob = get_raster_blob(path)
-            self.printer.send_command(PhoenixCommands.INIT)
-            self.printer.send_command(raster_blob)
-            self.printer.send_command(PhoenixCommands.FULL_CUT)
+            if self.printer.get_type() == "PhoenixPrinter":
+                self.printer.send_command(PhoenixCommands.INIT)
+                self.printer.send_command(raster_blob)
+                self.printer.send_command(PhoenixCommands.FULL_CUT)
+            elif self.printer.get_type() == "ReliancePrinter":
+                self.printer.send_command(RelianceCommands.INIT)
+                self.printer.send_command(raster_blob)
+                self.printer.send_command(RelianceCommands.EJECTOR + b'\x05')
+            else:
+                console.print("[bold red]Unsupported printer type for image printing.[/bold red]")
+                return
             console.print("[bold green]Image sent successfully![/bold green]")
         except Exception as e:
             console.print(f"[bold red]Error:[/bold red] {e}")

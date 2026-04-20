@@ -5,6 +5,11 @@
 from Printer.phoenix_printer import PhoenixPrinter
 from commands import PhoenixCommands
 from Menu.util import find_port
+import sys
+import os
+
+# Ensure project root is in path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
 def run_phoenix_positioning():
     ports = find_port()
@@ -12,8 +17,8 @@ def run_phoenix_positioning():
         print("No printer found.")
         return
 
-    # Use the correct port index based on your setup. Here we use ports[1] as in previous samples.
-    printer = PhoenixPrinter(ports[1].device)
+    # Use the first detected port by default so the sample works when only one printer port is available.
+    printer = PhoenixPrinter(ports[0].device)
 
     try:
         printer.send_command(PhoenixCommands.INIT)
