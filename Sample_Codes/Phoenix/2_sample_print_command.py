@@ -7,27 +7,25 @@ from Menu.util import find_port
 ## Illustrates the standard "Initialize -> Action -> Cut" workflow.
 #  @see [Phoenix Paper Movement Commands](https://escpos.readthedocs.io/en/latest/paper_movement.html)
 def run_basic_print():
-    # 1. Setup Connection
     ports = find_port()
     if not ports:
         print("No printer found.")
         return
 
+    # Use the correct port index based on your setup. Here we use ports[1] as in previous samples.
     printer = PhoenixPrinter(ports[1].device)
 
     try:
-        # 2. Initialize (ESC @)
-        # Always good practice to clear the buffer and reset settings
-        print("Initializing printer...")
+        # Initialize
         printer.send_command(PhoenixCommands.INIT)
 
-        # 3. Send Text Data
+        # Send Text Data
         print("Sending text...")
         printer.send_command(b"Phoenix Sample Print\n")
         printer.send_command(b"--------------------\n")
         printer.send_command(b"SWT-189: Command Sample\n\n")
 
-        # 4. Feed and Cut (GS V)
+        # Feed and Cut (GS V)
         # We feed a bit of paper so the text clears the cutter blade
         print("Cutting paper...")
         printer.send_command(PhoenixCommands.FULL_CUT)

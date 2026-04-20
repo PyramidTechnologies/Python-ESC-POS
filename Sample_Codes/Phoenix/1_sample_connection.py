@@ -8,9 +8,12 @@ def simple_connect():
     ports = find_port()
     if ports:
         # Initialize printer on the first found port
-        printer = PhoenixPrinter(ports[0].device)
+        printer = PhoenixPrinter(ports[1].device)
 
         # verify_logic_link is the 'handshake'
         status = printer.verify_logic_link()
         print(f"Printer Status: {status}")
         return printer
+
+if __name__ == "__main__":
+    simple_connect()

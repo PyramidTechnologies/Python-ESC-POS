@@ -32,3 +32,6 @@ class BasePrinter:
         self.ser.timeout = timeout
         response = self.ser.read_all()
         return response
+
+    def get_type(self):
+        return self.printer_type

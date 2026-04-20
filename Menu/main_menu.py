@@ -53,9 +53,9 @@ class MainMenu:
             console.print("[bold red]Failed to connect to printer. Exiting.[/bold red]")
             return
 
-        self.phoenix_menu()
+        self.menu()
 
-    def phoenix_menu(self):
+    def menu(self):
         while True:
             menu_text = (
                 "1. [bold cyan]Print Menu[/bold cyan] (Text, Font, Style)\n"
@@ -72,9 +72,9 @@ class MainMenu:
                 self.printer.close()
                 break
 
-            self.phoenix_handle_choice(choice)
+            self.handle_choice(choice)
 
-    def phoenix_handle_choice(self, choice):
+    def handle_choice(self, choice):
         if choice == "1":
             PrintMenu(self.printer)
         elif choice == "2":
@@ -107,14 +107,14 @@ class MainMenu:
         console.print(f"Printer response: [green]00[/green]")
 
     def display_commands(self):
-        is_phoenix = "Phoenix" in str(type(self.printer))
-        phoenix_cmds = PhoenixCommands if is_phoenix else RelianceCommands
+        is_phoenix = self.printer.get_type() == "PhoenixPrinter"
+        cmds = PhoenixCommands if is_phoenix else RelianceCommands
 
-        table = Table(title=f"{phoenix_cmds.__name__} List", show_header=True, header_style="bold magenta")
+        table = Table(title=f"{cmds.__name__} List", show_header=True, header_style="bold magenta")
         table.add_column("Command Name", style="cyan")
         table.add_column("Hex Value", style="green", justify="right")
 
-        commands_to_show = {cmds_name: cmds_bytes for cmds_name, cmds_bytes in phoenix_cmds.__dict__.items() if cmds_name.isupper()}
+        commands_to_show = {cmds_name: cmds_bytes for cmds_name, cmds_bytes in cmds.__dict__.items() if cmds_name.isupper()}
         commands_to_show.update({cmds_name: cmds_bytes for cmds_name, cmds_bytes in Commands.__dict__.items() if cmds_name.isupper()})
 
         for name, value in sorted(commands_to_show.items()):
