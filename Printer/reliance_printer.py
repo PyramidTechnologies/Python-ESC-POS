@@ -4,7 +4,7 @@ import time
 
 class ReliancePrinter(base_printer.BasePrinter):
     def __init__(self, port):
-        super().__init__(port, 19200)
+        super().__init__(port, 9600)
         self.printer_type = "ReliancePrinter"
 
         time.sleep(1)
