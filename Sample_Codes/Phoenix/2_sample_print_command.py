@@ -28,7 +28,7 @@ def run_basic_print():
         print("Sending text...")
         printer.send_command(b"Phoenix Sample Print\n")
         printer.send_command(b"--------------------\n")
-        printer.send_command(b"SWT-189: Command Sample\n\n")
+        printer.send_command(b"Command Sample\n\n")
 
         # Feed and Cut (GS V)
         # We feed a bit of paper so the text clears the cutter blade
