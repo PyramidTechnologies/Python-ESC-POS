@@ -3,7 +3,7 @@ from rich.columns import Columns
 from rich.panel import Panel
 from rich.prompt import Prompt
 from rich.table import Table
-from commands import PhoenixCommands, RelianceCommands, Commands
+from py_esc_pos.commands import PhoenixCommands
 
 console = Console()
 
@@ -11,7 +11,7 @@ def add_font_type(print_buffer, font_type):
     if not print_buffer:
         console.print("[bold red]No lines to set font for![/bold red]")
         return
-    type_map = {"A": PhoenixCommands.SELECT_FONT_A, "B": PhoenixCommands.SELECT_FONT_B, "C": PhoenixCommands.SELECT_FONT_C}
+    type_map = {"A": PhoenixCommands.SELECT_FONT_A, "C": PhoenixCommands.SELECT_FONT_C, "D": PhoenixCommands.SELECT_FONT_D}
     print_buffer[-1]["type"] = type_map[font_type]
 
 def add_font_style(print_buffer, style):
@@ -66,7 +66,7 @@ class PrintMenu:
                 "3. [bold cyan]Set Font Style[/bold cyan] (Last Line)\n"
                 "4. [red]Remove Last Line[/red]\n"
                 "5. [bold magenta]PROCESS PRINT JOB[/bold magenta]\n"
-                "6. [yellow]Back to Main Menu[/yellow]\n"
+                "6. [yellow]Back to Main menu[/yellow]\n"
                 "0. Exit"
             )
             menu_panel = Panel(menu_text, title="Print Settings", expand=False)

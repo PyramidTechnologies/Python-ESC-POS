@@ -2,10 +2,12 @@ from rich.console import Console
 from rich.prompt import Prompt
 from rich.panel import Panel
 from rich.table import Table
-from Menu.print_menu import PrintMenu
-from Menu.util import get_raster_blob, find_port, verify_printer_connection
-from commands import PhoenixCommands, RelianceCommands, Commands
-from Printer import phoenix_printer, reliance_printer
+
+from py_esc_pos.commands import PhoenixCommands, RelianceCommands, Commands
+from py_esc_pos.printer import phoenix_printer, reliance_printer
+
+from print_menu import PrintMenu
+from util import get_raster_blob, find_port, verify_printer_connection
 
 console = Console()
 
@@ -34,7 +36,7 @@ class MainMenu:
         if not port: return False
 
         printer_type = Prompt.ask(
-            "\nSelect Printer Type",
+            "\nSelect printer Type",
             choices=["phoenix", "reliance"]
         ).lower()
 
@@ -53,16 +55,19 @@ class MainMenu:
             console.print("[bold red]Failed to connect to printer. Exiting.[/bold red]")
             return
 
+        self.menu()
+
+    def menu(self):
         while True:
             menu_text = (
-                "1. [bold cyan]Print Menu[/bold cyan] (Text, Font, Style)\n"
+                "1. [bold cyan]Print menu[/bold cyan] (Text, Font, Style)\n"
                 "2. [bold cyan]Print image[/bold cyan] \n"
                 "3. [bold magenta]Send Raw Input[/bold magenta]\n"
                 "4. [bold green]View Command List[/bold green]\n"
                 "0. Exit"
             )
 
-            console.print(Panel(menu_text, title="Main Menu", expand=False))
+            console.print(Panel(menu_text, title="Main menu", expand=False))
             choice = Prompt.ask("Action", choices=["0", "1", "2", "3", "4"], default="0")
 
             if choice == "0":
@@ -85,9 +90,17 @@ class MainMenu:
         path = Prompt.ask("Enter image path")
         try:
             raster_blob = get_raster_blob(path)
-            self.printer.send_command(PhoenixCommands.INIT)
-            self.printer.send_command(raster_blob)
-            self.printer.send_command(PhoenixCommands.FULL_CUT)
+            if self.printer.get_type() == "PhoenixPrinter":
+                self.printer.send_command(PhoenixCommands.INIT)
+                self.printer.send_command(raster_blob)
+                self.printer.send_command(PhoenixCommands.FULL_CUT)
+            elif self.printer.get_type() == "ReliancePrinter":
+                self.printer.send_command(RelianceCommands.INIT)
+                self.printer.send_command(raster_blob)
+                self.printer.send_command(RelianceCommands.EJECTOR + b'\x05')
+            else:
+                console.print("[bold red]Unsupported printer type for image printing.[/bold red]")
+                return
             console.print("[bold green]Image sent successfully![/bold green]")
         except Exception as e:
             console.print(f"[bold red]Error:[/bold red] {e}")
@@ -100,18 +113,18 @@ class MainMenu:
         response = self.printer.read_response(timeout=2.0)
         hex_response = " ".join(f"{b:02X}" for b in response)
         if hex_response:
-            console.print(f"Printer response (hex): [green]{hex_response}[/green]")
-        console.print(f"Printer response: [green]00[/green]")
+            console.print(f"printer response (hex): [green]{hex_response}[/green]")
+        console.print(f"printer response: [green]00[/green]")
 
     def display_commands(self):
-        is_phoenix = "Phoenix" in str(type(self.printer))
-        phoenix_cmds = PhoenixCommands if is_phoenix else RelianceCommands
+        is_phoenix = self.printer.get_type() == "PhoenixPrinter"
+        cmds = PhoenixCommands if is_phoenix else RelianceCommands
 
-        table = Table(title=f"{phoenix_cmds.__name__} List", show_header=True, header_style="bold magenta")
+        table = Table(title=f"{cmds.__name__} List", show_header=True, header_style="bold magenta")
         table.add_column("Command Name", style="cyan")
         table.add_column("Hex Value", style="green", justify="right")
 
-        commands_to_show = {cmds_name: cmds_bytes for cmds_name, cmds_bytes in phoenix_cmds.__dict__.items() if cmds_name.isupper()}
+        commands_to_show = {cmds_name: cmds_bytes for cmds_name, cmds_bytes in cmds.__dict__.items() if cmds_name.isupper()}
         commands_to_show.update({cmds_name: cmds_bytes for cmds_name, cmds_bytes in Commands.__dict__.items() if cmds_name.isupper()})
 
         for name, value in sorted(commands_to_show.items()):
@@ -119,4 +132,4 @@ class MainMenu:
             table.add_row(name, hex_val)
 
         console.print(table)
-        Prompt.ask("\nPress [bold]Enter[/bold] to return to Main Menu")
+        Prompt.ask("\nPress [bold]Enter[/bold] to return to Main menu")

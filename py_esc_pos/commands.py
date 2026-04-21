@@ -23,10 +23,15 @@ class Commands:
     CENTER = b'\x01'
     RIGHT = b'\x02'
 
+    RT_PRINTER = b'\x01'
+    RT_OFFLINE = b'\x02'
+    RT_ERROR = b'\x03'
+    RT_PAPER = b'\x04'
+
 class PhoenixCommands(Commands):
     SELECT_FONT_A = b'\x1b\x50'
-    SELECT_FONT_B = b'\x1b\x54'
-    SELECT_FONT_C = b'\x1b\x55'
+    SELECT_FONT_C = b'\x1b\x54'
+    SELECT_FONT_D = b'\x1b\x55'
     PAPER_STATUS = b'\x1b\x76'
     PRINT_N_FEED_PAPER_N_LINES = b'\x1b\x64'
     PRINT_N_FEED_PAPER = b'\x1b\x4a'
@@ -37,15 +42,6 @@ class PhoenixCommands(Commands):
     TOGGLE_AUTO_CUT = b'\x1c\x7d\x60'
     DYNAMIC_2D_BARCODE = b'\x1d\x28\x6b'
     PRINT_REAL_TIME_CLOCK = b'\x1c\x7d\x70'
-    RT_PRINTER = b'\x01'
-    RT_OFFLINE = b'\x02'
-    RT_ERROR = b'\x03'
-    RT_PAPER = b'\x04'
-
-    # Actions
-    TEST_COIN_IN = b'\x60'
-    TEST_NOTE_IN = b'\x61'
-    PRINT_RTC = b'\x1c\x7d\x70'
 
 class RelianceCommands(Commands):
     HORIZONTAL_TAB = b'\x09'
@@ -72,7 +68,7 @@ class RelianceCommands(Commands):
     BARCODE_GENERATOR_2D = b'\x1c\x7d\x25'
     SET_2D_BARCODE_SIZE = b'\x1c\x7d\x74'
     BARCODE_GENERATOR = b'\x1d\x6b'
-    SET_1d_BARCODE_WIDTH_MULT = b'\x1d\x77'
+    SET_1D_BARCODE_WIDTH_MULT = b'\x1d\x77'
     SET_1D_BARCODE_HEIGHT = b'\x1d\x68'
     SET_HRI_PRINTING_POSITION = b'\x1d\x48'
     SET_HRI_FONT = b'\x1d\x66'

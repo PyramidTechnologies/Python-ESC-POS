@@ -10,7 +10,7 @@ class BasePrinter:
             parity=serial.PARITY_NONE,
             stopbits=serial.STOPBITS_ONE,
         )
-
+        self.printer_type = "BasePrinter"
         time.sleep(1)
         self.ser.reset_input_buffer()
         self.ser.reset_output_buffer()
@@ -32,3 +32,6 @@ class BasePrinter:
         self.ser.timeout = timeout
         response = self.ser.read_all()
         return response
+
+    def get_type(self):
+        return self.printer_type

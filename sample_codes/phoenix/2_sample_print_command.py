@@ -1,33 +1,31 @@
 #  @brief Basic Command Execution for Phoenix Printers.
 #  @details This sample demonstrates how to initialize the printer, print text, and trigger a full cut using ESC/POS constants.
-from Printer.phoenix_printer import PhoenixPrinter
-from commands import PhoenixCommands
-from Menu.util import find_port
 
+from py_esc_pos.printer.phoenix_printer import PhoenixPrinter
+from py_esc_pos.commands import PhoenixCommands
+from py_esc_pos.menu.util import find_port
 ## Illustrates the standard "Initialize -> Action -> Cut" workflow.
 #  @see [Phoenix Paper Movement Commands](https://escpos.readthedocs.io/en/latest/paper_movement.html)
 def run_basic_print():
-    # 1. Setup Connection
     ports = find_port()
     if not ports:
         print("No printer found.")
         return
 
-    printer = PhoenixPrinter(ports[1].device)
+    # Use the first detected printer port by default.
+    printer = PhoenixPrinter(ports[0].device)
 
     try:
-        # 2. Initialize (ESC @)
-        # Always good practice to clear the buffer and reset settings
-        print("Initializing printer...")
+        # Initialize
         printer.send_command(PhoenixCommands.INIT)
 
-        # 3. Send Text Data
+        # Send Text Data
         print("Sending text...")
         printer.send_command(b"Phoenix Sample Print\n")
         printer.send_command(b"--------------------\n")
-        printer.send_command(b"SWT-189: Command Sample\n\n")
+        printer.send_command(b"Command Sample\n\n")
 
-        # 4. Feed and Cut (GS V)
+        # Feed and Cut (GS V)
         # We feed a bit of paper so the text clears the cutter blade
         print("Cutting paper...")
         printer.send_command(PhoenixCommands.FULL_CUT)
