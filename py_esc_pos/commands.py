@@ -43,12 +43,6 @@ class PhoenixCommands(Commands):
     DYNAMIC_2D_BARCODE = b'\x1d\x28\x6b'
     PRINT_REAL_TIME_CLOCK = b'\x1c\x7d\x70'
 
-
-    # Actions
-    TEST_COIN_IN = b'\x60'
-    TEST_NOTE_IN = b'\x61'
-    PRINT_RTC = b'\x1c\x7d\x70'
-
 class RelianceCommands(Commands):
     HORIZONTAL_TAB = b'\x09'
     FORM_FEED = b'\x0c'
