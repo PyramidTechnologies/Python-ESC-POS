@@ -1,11 +1,11 @@
-#  @brief Basic Command Execution for phoenix Printers.
+#  @brief Basic Command Execution for Phoenix Printers.
 #  @details This sample demonstrates how to initialize the printer, print text, and trigger a full cut using ESC/POS constants.
 
 from py_esc_pos.printer.phoenix_printer import PhoenixPrinter
 from py_esc_pos.commands import PhoenixCommands
 from py_esc_pos.menu.util import find_port
 ## Illustrates the standard "Initialize -> Action -> Cut" workflow.
-#  @see [phoenix Paper Movement Commands](https://escpos.readthedocs.io/en/latest/paper_movement.html)
+#  @see [Phoenix Paper Movement Commands](https://escpos.readthedocs.io/en/latest/paper_movement.html)
 def run_basic_print():
     ports = find_port()
     if not ports:
@@ -21,7 +21,7 @@ def run_basic_print():
 
         # Send Text Data
         print("Sending text...")
-        printer.send_command(b"phoenix Sample Print\n")
+        printer.send_command(b"Phoenix Sample Print\n")
         printer.send_command(b"--------------------\n")
         printer.send_command(b"Command Sample\n\n")
 

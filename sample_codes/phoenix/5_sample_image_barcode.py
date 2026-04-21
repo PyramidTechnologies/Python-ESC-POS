@@ -1,12 +1,12 @@
-#  @brief Demonstrates image and barcode generation for phoenix printers.
+#  @brief Demonstrates image and barcode generation for Phoenix printers.
 #  @details Covers 2D Barcodes (QR Codes) and Raster Image printing.
-#  @see [Layout Commands](https://escpos.readthedocs.io/en/latest/imaging.html)
+#  @see [Images and Barcode Commands](https://escpos.readthedocs.io/en/latest/imaging.html)
 
 from py_esc_pos.printer.phoenix_printer import PhoenixPrinter
 from py_esc_pos.commands import PhoenixCommands
 from py_esc_pos.menu.util import find_port, get_raster_blob
 
-IMAGE_PATH = r"C:\Users\longuyen\Downloads\test_penguin.jpg"  # Replace with your image path
+IMAGE_PATH = r"sample_image.png"  # Replace with your image path
 
 def run_image_barcode_sample():
     ports = find_port()
@@ -15,7 +15,7 @@ def run_image_barcode_sample():
         return
 
     # Use the first detected port by default so the sample works when only one printer port is available.
-    printer = PhoenixPrinter(ports[1].device)
+    printer = PhoenixPrinter(ports[0].device)
 
     try:
         raster_blob = get_raster_blob(IMAGE_PATH)

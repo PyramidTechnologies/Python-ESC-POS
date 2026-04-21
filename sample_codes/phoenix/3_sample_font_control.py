@@ -1,6 +1,7 @@
-#  @brief Demonstrates font styling and selection on phoenix printers.
+#  @brief Demonstrates font styling and selection on Phoenix printers.
 #  @details This sample covers bold, underline, and switching between Font A (12x24), Font C (24x48), and (16x24).
 #  @see [Font Controlling Commands](https://escpos.readthedocs.io/en/latest/font_cmds.html)
+
 from py_esc_pos.printer.phoenix_printer import PhoenixPrinter
 from py_esc_pos.commands import PhoenixCommands
 from py_esc_pos.menu.util import find_port
@@ -19,7 +20,7 @@ def run_font_sample():
         printer.send_command(PhoenixCommands.INIT)
 
         # Emphasis (Bold) Mode
-        # @see [phoenix Emphasis Command] (https://escpos.readthedocs.io/en/latest/font_cmds.html#emphasis-mode-1b-45)
+        # @see [Phoenix Emphasis Command] (https://escpos.readthedocs.io/en/latest/font_cmds.html#emphasis-mode-1b-45)
         printer.send_command(b"Standard Text")
         printer.send_command(PhoenixCommands.EMPHASIS_MODE + PhoenixCommands.ON)
         printer.send_command(b"Emphasized (Bold) Text")
@@ -27,7 +28,7 @@ def run_font_sample():
         printer.send_command(PhoenixCommands.EMPHASIS_MODE + PhoenixCommands.OFF)
 
         # Underline Mode
-        # @see [phoenix Underline Command] (https://escpos.readthedocs.io/en/latest/font_cmds.html#underline-mode-1b-2d)
+        # @see [Phoenix Underline Command] (https://escpos.readthedocs.io/en/latest/font_cmds.html#underline-mode-1b-2d)
         printer.send_command(PhoenixCommands.UNDERLINE_MODE + PhoenixCommands.ON)
         printer.send_command(b"Underlined Text")
         printer.send_command(PhoenixCommands.LINE_FEED)
@@ -35,7 +36,7 @@ def run_font_sample():
 
         # Font Selection
         # Font A is standard (12w x 24h), Font B is expanded (24w x 48h), Font C is wider (16w x 24h)
-        # @see [phoenix Font A Command] (https://escpos.readthedocs.io/en/latest/font_cmds.html#select-character-font-1b-4d)
+        # @see [Phoenix Font A Command] (https://escpos.readthedocs.io/en/latest/font_cmds.html#select-character-font-1b-4d)
         printer.send_command(b"This is Font A")
         printer.send_command(PhoenixCommands.LINE_FEED)
         printer.send_command(PhoenixCommands.SELECT_FONT_C)

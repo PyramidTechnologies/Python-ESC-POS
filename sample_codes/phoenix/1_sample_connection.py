@@ -1,4 +1,4 @@
-#  @brief This sample demonstrates how to establish a link with the phoenix printer.
+#  @brief This sample demonstrates how to establish a link with the Phoenix printer.
 
 from py_esc_pos.printer.phoenix_printer import PhoenixPrinter
 from py_esc_pos.menu.util import find_port
