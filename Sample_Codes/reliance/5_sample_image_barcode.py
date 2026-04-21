@@ -1,15 +1,15 @@
 ## @brief Demonstrates image and barcode generation for Reliance printers.
 #  @details Covers 1D Barcodes, 2D Barcodes (QR Codes), and Raster Image printing.
 #  @see [Images and Barcode Commands](https://escpos.readthedocs.io/en/latest/imaging.html#)
-from Menu.util import find_port, get_raster_blob
-from Printer.reliance_printer import ReliancePrinter
-from commands import RelianceCommands
 import sys
 import os
 
 # Ensure project root is in path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
+from Menu.util import find_port, get_raster_blob
+from Printer.reliance_printer import ReliancePrinter
+from commands import RelianceCommands
 IMAGE_PATH = r"sample_image.png"  # Replace with your image path
 
 def run_imaging_sample():
