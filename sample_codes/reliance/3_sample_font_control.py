@@ -1,15 +1,10 @@
 ## @brief Demonstrates font styling and orientation for Reliance printers.
 #  @details Focuses on text rotation (90° and 180°), reverse printing, and style combinations.
 #  @see Font Controlling Commands
-import sys
-import os
 
-# Ensure project root is in path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-
-from Menu.util import find_port
-from Printer.reliance_printer import ReliancePrinter
-from commands import RelianceCommands
+from py_esc_pos.menu.util import find_port
+from py_esc_pos.printer.reliance_printer import ReliancePrinter
+from py_esc_pos.commands import RelianceCommands
 def run_font_orientation_sample():
     ports = find_port()
     if not ports:

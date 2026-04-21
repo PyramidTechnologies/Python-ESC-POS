@@ -1,4 +1,4 @@
-from Menu.main_menu import MainMenu
+from py_esc_pos.menu.main_menu import MainMenu
 
 if __name__ == "__main__":
     app = MainMenu()

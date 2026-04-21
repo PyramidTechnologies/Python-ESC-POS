@@ -1,7 +1,7 @@
 from PIL import Image, ImageOps
 import serial.tools.list_ports as port_list
 
-from commands import PhoenixCommands
+from py_esc_pos.commands import PhoenixCommands
 
 def find_port():
     return list(port_list.comports())

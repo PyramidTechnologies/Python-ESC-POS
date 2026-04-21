@@ -30,8 +30,8 @@ class Commands:
 
 class PhoenixCommands(Commands):
     SELECT_FONT_A = b'\x1b\x50'
-    SELECT_FONT_B = b'\x1b\x54'
-    SELECT_FONT_C = b'\x1b\x55'
+    SELECT_FONT_C = b'\x1b\x54'
+    SELECT_FONT_D = b'\x1b\x55'
     PAPER_STATUS = b'\x1b\x76'
     PRINT_N_FEED_PAPER_N_LINES = b'\x1b\x64'
     PRINT_N_FEED_PAPER = b'\x1b\x4a'
@@ -74,7 +74,7 @@ class RelianceCommands(Commands):
     BARCODE_GENERATOR_2D = b'\x1c\x7d\x25'
     SET_2D_BARCODE_SIZE = b'\x1c\x7d\x74'
     BARCODE_GENERATOR = b'\x1d\x6b'
-    SET_1d_BARCODE_WIDTH_MULT = b'\x1d\x77'
+    SET_1D_BARCODE_WIDTH_MULT = b'\x1d\x77'
     SET_1D_BARCODE_HEIGHT = b'\x1d\x68'
     SET_HRI_PRINTING_POSITION = b'\x1d\x48'
     SET_HRI_FONT = b'\x1d\x66'

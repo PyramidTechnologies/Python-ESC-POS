@@ -1,16 +1,11 @@
-#  @brief Demonstrates supported positioning and alignment for Phoenix printers.
+#  @brief Demonstrates supported positioning and alignment for phoenix printers.
 #  @details Focuses on Justification (Left/Center/Right) and Line Spacing,
-#  as Phoenix uses these for layout over coordinate-based positioning.
+#  as phoenix uses these for layout over coordinate-based positioning.
 #  @see [Layout Commands](https://escpos.readthedocs.io/en/latest/layout_cmds.html)
-import sys
-import os
 
-# Ensure project root is in path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-
-from Printer.phoenix_printer import PhoenixPrinter
-from commands import PhoenixCommands
-from Menu.util import find_port
+from py_esc_pos.printer.phoenix_printer import PhoenixPrinter
+from py_esc_pos.commands import PhoenixCommands
+from py_esc_pos.menu.util import find_port
 def run_phoenix_positioning():
     ports = find_port()
     if not ports:
@@ -24,7 +19,7 @@ def run_phoenix_positioning():
         printer.send_command(PhoenixCommands.INIT)
 
         # Left (Default)
-        # @see [Phoenix Justification Commands] (https://escpos.readthedocs.io/en/latest/layout.html#b61)
+        # @see [phoenix Justification Commands] (https://escpos.readthedocs.io/en/latest/layout.html#b61)
         printer.send_command(PhoenixCommands.SELECT_JUSTIFICATION + PhoenixCommands.LEFT)
         printer.send_command(b"Left Aligned Text\n")
 

@@ -1,12 +1,7 @@
 #  @brief This sample demonstrates how to establish a link with the Reliance printer.
-import sys
-import os
 
-# Ensure project root is in path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-
-from Printer.reliance_printer import ReliancePrinter
-from Menu.util import find_port
+from py_esc_pos.printer.reliance_printer import ReliancePrinter
+from py_esc_pos.menu.util import find_port
 ## Connects to the first available printer and checks status.
 #  @returns A ReliancePrinter instance if successful.
 def simple_connect():

@@ -1,12 +1,8 @@
-#  @brief This sample demonstrates how to establish a link with the Phoenix printer.
-import sys
-import os
+#  @brief This sample demonstrates how to establish a link with the phoenix printer.
 
-# Ensure project root is in path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+from py_esc_pos.printer.phoenix_printer import PhoenixPrinter
+from py_esc_pos.menu.util import find_port
 
-from Printer.phoenix_printer import PhoenixPrinter
-from Menu.util import find_port
 ## Connects to the first available printer and checks status.
 #  @returns A PhoenixPrinter instance if successful.
 def simple_connect():

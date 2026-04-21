@@ -1,14 +1,9 @@
 #  @brief Basic Command Execution for Reliance printers.
 #  @details This sample demonstrates how to initialize the printer, print text, and trigger a full cut using ESC/POS constants.
-import sys
-import os
 
-# Ensure project root is in path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-
-from Printer.reliance_printer import ReliancePrinter
-from commands import RelianceCommands
-from Menu.util import find_port
+from py_esc_pos.printer.reliance_printer import ReliancePrinter
+from py_esc_pos.commands import RelianceCommands
+from py_esc_pos.menu.util import find_port
 ## Illustrates the standard "Initialize -> Action -> Cut" workflow.
 #  @see [Reliance Paper Movement Commands](https://escpos.readthedocs.io/en/latest/paper_movement.html)
 def run_basic_print():

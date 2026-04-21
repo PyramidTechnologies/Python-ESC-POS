@@ -1,5 +1,5 @@
-from Printer import base_printer
-from commands import RelianceCommands
+from py_esc_pos.printer import base_printer
+from py_esc_pos.commands import RelianceCommands
 import time
 
 class ReliancePrinter(base_printer.BasePrinter):
