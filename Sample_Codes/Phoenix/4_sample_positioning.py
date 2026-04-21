@@ -2,15 +2,15 @@
 #  @details Focuses on Justification (Left/Center/Right) and Line Spacing,
 #  as Phoenix uses these for layout over coordinate-based positioning.
 #  @see [Layout Commands](https://escpos.readthedocs.io/en/latest/layout_cmds.html)
-from Printer.phoenix_printer import PhoenixPrinter
-from commands import PhoenixCommands
-from Menu.util import find_port
 import sys
 import os
 
 # Ensure project root is in path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
+from Printer.phoenix_printer import PhoenixPrinter
+from commands import PhoenixCommands
+from Menu.util import find_port
 def run_phoenix_positioning():
     ports = find_port()
     if not ports:
