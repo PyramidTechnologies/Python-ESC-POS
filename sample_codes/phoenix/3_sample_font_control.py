@@ -1,5 +1,5 @@
 #  @brief Demonstrates font styling and selection on phoenix printers.
-#  @details This sample covers bold, underline, and switching between Font A (12x24) and Font C (24x48).
+#  @details This sample covers bold, underline, and switching between Font A (12x24), Font C (24x48), and (16x24).
 #  @see [Font Controlling Commands](https://escpos.readthedocs.io/en/latest/font_cmds.html)
 from py_esc_pos.printer.phoenix_printer import PhoenixPrinter
 from py_esc_pos.commands import PhoenixCommands
@@ -12,7 +12,7 @@ def run_font_sample():
         return
 
     # Use the first detected printer port by default.
-    printer = PhoenixPrinter(ports[1].device)
+    printer = PhoenixPrinter(ports[0].device)
 
     try:
         # Initialize
@@ -34,7 +34,7 @@ def run_font_sample():
         printer.send_command(PhoenixCommands.UNDERLINE_MODE + PhoenixCommands.OFF)
 
         # Font Selection
-        # Font A is standard (12w x 24h), Font B is condensed (9w x 17h)
+        # Font A is standard (12w x 24h), Font B is expanded (24w x 48h), Font C is wider (16w x 24h)
         # @see [phoenix Font A Command] (https://escpos.readthedocs.io/en/latest/font_cmds.html#select-character-font-1b-4d)
         printer.send_command(b"This is Font A")
         printer.send_command(PhoenixCommands.LINE_FEED)
@@ -56,7 +56,6 @@ def run_font_sample():
         print(f"Error: {e}")
     finally:
         printer.close()
-
 
 if __name__ == "__main__":
     run_font_sample()
