@@ -10,7 +10,7 @@ from Printer.reliance_printer import ReliancePrinter
 from commands import RelianceCommands
 from Menu.util import find_port
 ## Illustrates the standard "Initialize -> Action -> Cut" workflow.
-#  @see [Phoenix Paper Movement Commands](https://escpos.readthedocs.io/en/latest/paper_movement.html)
+#  @see [Reliance Paper Movement Commands](https://escpos.readthedocs.io/en/latest/paper_movement.html)
 def run_basic_print():
     ports = find_port()
     if not ports:
